@@ -1,14 +1,3 @@
-## APP/Code Features 
-- Only Admin can perform Create/Edit/Delete cakes & manage Orders.
-- Normal User can only can buy cakes & view their orders.
-- Managing Cart System using cookie.
-- Client Side & Server side validation,
-- Cookie Based Authentication & Authorization - Not Session
-- Login through either `Username` or `Email`.
-- Responsive UI
-- Repository Pattern 
-- Application Architecture is decoupled form ORM (Entity Framework)
-
 ## Framework / Library 
 - ASP.NET Core 2.0 *(Backend)*
 - Razor View Engine *(For generating markup)*
@@ -22,10 +11,9 @@
 
    > Make sure, dotnet core SDK & npm is installed in your machine.
 
-- 
 - **Using CLI**
     ```
-        > git clone https://github.com/ritwickdey/Cake-Shop.git
+        > git clone https://github.com/xxrbson/.Net-Buka-Warung.git
         > cd Cake-Shop/Cake-Shop/
         > npm install
         > dotnet restore
