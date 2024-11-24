@@ -55,7 +55,7 @@
                                         @item.Name
                                     </td>
                                     <td>
-                                        @item.Price.ToString("c") * @item.Qty
+                                        Rp @item.Price.ToString("#,##0", new System.Globalization.CultureInfo("id-ID")) * @item.Qty
                                     </td>
                                 </tr>
                             }
@@ -63,7 +63,7 @@
                     </table>
                 </td>
                 <td>
-                    @order.OrderTotal.ToString("c")
+                    Rp @order.OrderTotal.ToString("#,##0", new System.Globalization.CultureInfo("id-ID"))
                 </td>
                 @if (User.IsInRole("Admin"))
                 {
