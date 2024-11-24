@@ -1,0 +1,124 @@
+﻿@model IEnumerable<MyOrderViewModel>
+
+@if (Model?.Count() <= 0)
+{
+    <div>
+        <p>No Order so far! Go ahead and place some order.</p>
+    </div>
+    return;
+}
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Billing Address</th>
+            <th>Order Summary</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td class="text-justify">
+                    <div>
+                        @order.OrderPlaceDetails.FirstName @order.OrderPlaceDetails.LastName,
+                        @order.OrderPlaceDetails.AddressLine1
+                        <div>
+                            @order.OrderPlaceDetails.AddressLine2
+                        </div>
+                    </div>
+                    <div>
+                        @order.OrderPlaceDetails.City,
+                        @order.OrderPlaceDetails.State
+                    </div>
+                    <div>
+                        @order.OrderPlaceDetails.ZipCode
+                    </div>
+                    <div>@order.OrderPlaceDetails.PhoneNumber</div>
+                    <div>@order.OrderPlaceDetails.Email</div>
+                    <br />
+                    <div>
+                        @order.OrderPlacedTime.Date.ToString("dd/MM/yyyy")
+                    </div>
+                </td>
+
+                <td>
+                    <table class="table">
+                        <tbody>
+                            @foreach (var item in order.CakeOrderInfos)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Name
+                                    </td>
+                                    <td>
+                                        @item.Price.ToString("c") * @item.Qty
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    @order.OrderTotal.ToString("c")
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <select class="status" data-id="@order.OrderPlaceDetails.Id" data-status="@order.OrderPlaceDetails.Status">
+                            <option value="0" @(order.OrderPlaceDetails.Status == 0 ? "selected" : "")>New Order</option>
+                            <option value="1" @(order.OrderPlaceDetails.Status == 1 ? "selected" : "")>Confirmed</option>
+                            <option value="2" @(order.OrderPlaceDetails.Status == 2 ? "selected" : "")>Packed</option>
+                            <option value="3" @(order.OrderPlaceDetails.Status == 3 ? "selected" : "")>Sent</option>
+                        </select>
+                    </td>
+                }else{
+                    <td>
+                        <input class="status" data-id="@order.OrderPlaceDetails.Id" data-status="@order.OrderPlaceDetails.Status" type="hidden" />
+                        <span id="statusOrderCustomer"></span>
+                    </td>
+                }
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+
+        $(".status").each(function() {
+            var id = $(this).data("id");
+            var status = $(this).data("status");
+            var statusCust = "";
+            $(this).val(status);
+            if(status == 0){statusCust = "Waiting For Confirmation"}
+            else if(status == 1){statusCust = "Confirmed"}
+            else if(status == 2){statusCust = "Packed"}
+            else if(status == 3){statusCust = "Sent"}
+            console.log(statusCust);
+            $("#statusOrderCustomer").text(statusCust);
+        });
+
+        $(".status").change(function(e) {
+            const status = $(e.target).val(); // Get the selected value
+            const id = $(e.target).data("id"); // Assume 'data-id' contains the ID of the order
+
+            $.ajax({
+                url: '/admin/manageCakes/updateStatus/' + id, // Your backend endpoint
+                type: 'PUT', // Use PUT or POST depending on your backend implementation
+                contentType: 'application/json', // Sending data as JSON
+                data: JSON.stringify({ status: status }), // Send the updated status
+                success: (response) => {
+                    alert("Status updated successfully!");
+                },
+                error: (xhr, status, error) => {
+                    alert("Something went wrong: " + xhr.responseText || error);
+                }
+            });
+        });
+    });
+</script>

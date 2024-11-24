@@ -1,9 +1,3 @@
-# Cake Shop
-
-A sample Cake Shop Website built with ASP.NET Core (Multi-Page Application)
-
-![screenshot1](./screenshots/screenshot1.png)
-
 ## APP/Code Features 
 - Only Admin can perform Create/Edit/Delete cakes & manage Orders.
 - Normal User can only can buy cakes & view their orders.
@@ -28,17 +22,7 @@ A sample Cake Shop Website built with ASP.NET Core (Multi-Page Application)
 
    > Make sure, dotnet core SDK & npm is installed in your machine.
 
-- **Using VS2017**
-     ``` 
-       > git clone https://github.com/ritwickdey/Cake-Shop.git
-       > cd Cake-Shop/
-    ```
-    - Now Open the `CakeShop.sln` through `VS2017`.
-    - Open `appsettings.json` & change the connection string. (But wait! you may not need to change it as this the default connection string of `SQL Server Express` that comes with `Visual Studio`).
-    - Hit `Ctrl+Shift+B` to build.
-    - Open `Package Manager Console` from `Tools` and enter `update-database`.
-    - Hit `Ctrl+F5` to run without debugging.
-
+- 
 - **Using CLI**
     ```
         > git clone https://github.com/ritwickdey/Cake-Shop.git
@@ -54,10 +38,3 @@ A sample Cake Shop Website built with ASP.NET Core (Multi-Page Application)
         > dotnet ef database update
         > dotnet run 
     ```
-
-## Sceenshots
-![screenshot2](./screenshots/screenshot2.png)
-![screenshot3](./screenshots/screenshot3.png)
-![screenshot4](./screenshots/screenshot4.png)
-![screenshot5](./screenshots/screenshot5.png)
-![screenshot6](./screenshots/screenshot6.png)
